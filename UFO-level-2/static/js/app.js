@@ -42,21 +42,50 @@ data.forEach((ufoSighting) => {
       var shapeinput = d3.select("#shape");
       var shapeinputValue = shapeinput.property("value");
 
-      
-      console.log(tableData);
-      var filteredData = tableData.filter(
-        ufo => ufo.datetime === dateinputValue).filter(
-          ufo => ufo.city === cityinputValue).filter(
-            ufo => ufo.state === stateinputValue).filter(
-              ufo => ufo.country === countryinputValue).filter(
-                ufo => ufo.shape === countryinputValue)
+      console.log(dateinputValue)
+      console.log(cityinputValue)
+      console.log(stateinputValue)
+      console.log(countryinputValue)
+      console.log(shapeinputValue)
 
 
-      console.log(filteredData);
+      // var filteredData = tableData
+
+
+      if (dateinputValue == ""){
+        filteredData = tableData}
+      else{
+        filteredData = tableData.filter(ufo => ufo.datetime === dateinputValue)
+      }
+
+      if (cityinputValue == ""){
+        filteredData2 = filteredData;}
+      else{
+        filteredData2 = filteredData.filter(ufo => ufo.city === cityinputValue)
+      }
+
+      if (stateinputValue == ""){
+        filteredData3 = filteredData2;}
+      else{
+        filteredData3 = filteredData2.filter(ufo => ufo.state === stateinputValue)
+      }
+
+      if (countryinputValue == ""){
+        filteredData4 = filteredData3;}
+      else{
+        filteredData4 = filteredData3.filter(ufo => ufo.country === countryinputValue)
+      }
+      if (shapeinputValue == ""){
+        filteredData5 = filteredData4;}
+      else{
+        filteredData5 = filteredData4.filter(ufo => ufo.shape === shapeinputValue)
+      }
+
+      console.log(filteredData5);
 
       tbody.html("")
 
-      filteredData.forEach((ufoSighting)=> {
+      filteredData5.forEach((ufoSighting)=> {
         var row = tbody.append("tr");
         Object.entries(ufoSighting).forEach(([key, value]) => {
           var cell = row.append("td");
@@ -66,3 +95,19 @@ data.forEach((ufoSighting) => {
 
   }
 
+
+  var reset = d3.select("#reset-btn");
+  reset.on("click",runReset);
+
+  function runReset(){
+    d3.event.preventDefault();
+    data.forEach((ufoSighting) => {
+      var row = tbody.append("tr");
+      Object.entries(ufoSighting).forEach(([key, value]) => {
+        var cell = row.append("td");
+        cell.text(value);
+        console.log(`Table Reset`)
+      });
+    });
+
+  }
